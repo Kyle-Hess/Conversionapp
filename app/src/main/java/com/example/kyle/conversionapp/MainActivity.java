@@ -54,10 +54,12 @@ public class MainActivity extends AppCompatActivity {
                 case "length":
                     spinnerFrom.setAdapter(adapter1);
                     spinnerTo.setAdapter(adapter1);
+                    unitTitle.setText("Length");
                     break;
                 case "speed":
                     spinnerFrom.setAdapter(adapter2);
                     spinnerTo.setAdapter(adapter2);
+                    unitTitle.setText("Speed");
                     break;
         }
         }catch (Exception e){
@@ -159,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
                         num2 = num1 / 100;
                         break;
                     case "Inches":
-                        num2 = num1 * 2.54;
+                        num2 = num1 * 0.393701;
                         break;
                 }
                 break;
