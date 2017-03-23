@@ -52,11 +52,11 @@
 
 
         <Spinner
-            android:layout_height="wrap_content"
             android:id="@+id/spinner_from"
-            android:layout_width="180sp"
+            android:layout_width="match_parent"
             android:entries="@array/length_array"
-            android:prompt="@string/unit_prompt"/>
+            android:prompt="@string/unit_prompt"
+            android:layout_height="50sp" />
 
         <TextView
             android:text="="
@@ -75,12 +75,12 @@
             tools:text="input 2" />
 
         <Spinner
-            android:layout_height="wrap_content"
             android:id="@+id/spinner_to"
-            android:layout_width="180sp"
+            android:layout_width="match_parent"
             android:spinnerMode="dropdown"
             android:entries="@array/length_array"
-            android:prompt="@string/unit_prompt"/>
+            android:prompt="@string/unit_prompt"
+            android:layout_height="50sp" />
 
 
 

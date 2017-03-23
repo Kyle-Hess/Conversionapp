@@ -25,7 +25,7 @@ public class Main2Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intentLength = new Intent(Main2Activity.this, MainActivity.class);
-                intentLength.putExtra("unit", "length");
+                intentLength.putExtra("unit", "Length");
 //                String length = "length";
 //                MainActivity mainActivity = new MainActivity();
 //                mainActivity.dataAdapter(length);
@@ -37,7 +37,7 @@ public class Main2Activity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intentSpeed = new Intent(Main2Activity.this, MainActivity.class);
-                intentSpeed.putExtra("unit", "speed");
+                intentSpeed.putExtra("unit", "Speed");
 //                String speed = "speed";
 //                MainActivity mainActivity = new MainActivity();
 //                mainActivity.dataAdapter(speed);

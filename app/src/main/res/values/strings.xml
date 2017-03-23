@@ -13,7 +13,7 @@
     </string-array>
 
     <string-array name="speed_array">
-        <item>kilometres per hour</item>
+        <item>Kilometres per hour</item>
         <item>Metres per second</item>
         <item>Miles per hour</item>
     </string-array>

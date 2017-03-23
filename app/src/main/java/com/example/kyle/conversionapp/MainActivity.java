@@ -10,18 +10,17 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView unitTitle;
-    public Spinner spinnerFrom;
+    private Spinner spinnerFrom;
     private Spinner spinnerTo;
     private EditText inputFrom;
     private EditText inputTo;
-    private ArrayAdapter<CharSequence>adapter1;
-    private ArrayAdapter<CharSequence>adapter2;
+    private ArrayAdapter<CharSequence> adapter1;
+    private ArrayAdapter<CharSequence> adapter2;
 
     public String currentUnitType;
 
@@ -33,8 +32,6 @@ public class MainActivity extends AppCompatActivity {
         unitTitle = (TextView) findViewById(R.id.unit_title);
         spinnerFrom = (Spinner) findViewById(R.id.spinner_from);
         spinnerTo = (Spinner) findViewById(R.id.spinner_to);
-        //ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this, R.array.length_array, android.R.layout.simple_spinner_item);
-        //ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.speed_array, android.R.layout.simple_spinner_item);
 
         adapter1 = ArrayAdapter.createFromResource(this, R.array.length_array, android.R.layout.simple_spinner_item);
         adapter2 = ArrayAdapter.createFromResource(this, R.array.speed_array, android.R.layout.simple_spinner_item);
@@ -48,21 +45,23 @@ public class MainActivity extends AppCompatActivity {
         Intent rIntent = getIntent();
         currentUnitType = rIntent.getStringExtra("unit");
         System.out.println(currentUnitType);
-        //// TODO: 19/03/2017 put the below switch statement into a method?
+        unitTitle.setText(currentUnitType);
+
+        //// TODO: 19/03/2017
         try {
-            switch (currentUnitType){
-                case "length":
+            switch (currentUnitType) {
+                case "Length":
                     spinnerFrom.setAdapter(adapter1);
                     spinnerTo.setAdapter(adapter1);
-                    unitTitle.setText("Length");
+                    unitTitle.setText(currentUnitType);
                     break;
-                case "speed":
+                case "Speed":
                     spinnerFrom.setAdapter(adapter2);
                     spinnerTo.setAdapter(adapter2);
-                    unitTitle.setText("Speed");
+                    unitTitle.setText(currentUnitType);
                     break;
-        }
-        }catch (Exception e){
+            }
+        } catch (Exception e) {
 
         }
 
@@ -72,22 +71,43 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, Main2Activity.class);
-                //intent.putExtra();
                 startActivity(intent);
             }
         });
 
-        //Input Listener for Input_from
+//        inputFrom.addTextChangedListener(tw);
+//        inputTo.addTextChangedListener(tw);
+
+
+        View.OnFocusChangeListener f = new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    inputFrom.getText().clear();
+                }
+                if (hasFocus) {
+                    inputTo.getText().clear();
+                }
+            }
+        };
+        inputFrom.setOnFocusChangeListener(f);
+        inputTo.setOnFocusChangeListener(f);
+
+        //// TODO: 23/03/2017 Try and simplify the on text change input listeners into one listener
+        //// TODO: 23/03/2017 Try to add an if or switch to separate Length and speed conversions for cleaner layout
+
         inputFrom.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence string, int start, int count, int after) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
 
             @Override
             public void onTextChanged(CharSequence string, int start, int before, int count) {
+
+                //// TODO: 19/03/2017 Mabey try to simplify into a single method.
+                //onTextConvert1(string);
                 try {
-                    //// TODO: 19/03/2017 Mabey try to simplify into a single method.
                     String spinnerUnitFrom = (String) spinnerFrom.getSelectedItem();
                     String spinnerUnitTo = (String) spinnerTo.getSelectedItem();
                     double value = Integer.parseInt(string.toString());
@@ -105,21 +125,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //Input Listener for input_to
         inputTo.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence string, int start, int count, int after) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
 
             @Override
             public void onTextChanged(CharSequence string, int start, int before, int count) {
+                //onTextConvert2(string);
                 try {
                     String spinnerUnitFrom = (String) spinnerFrom.getSelectedItem();
                     String spinnerUnitTo = (String) spinnerTo.getSelectedItem();
                     double value = Integer.parseInt(string.toString());
-                    double result = convert(value, spinnerUnitFrom, spinnerUnitTo);
+                    double result = convert(value,spinnerUnitTo, spinnerUnitFrom);
                     System.out.println(result);
                     inputFrom.setText(String.valueOf(result));
+
                 } catch (Exception e) {
                 }
             }
@@ -132,10 +154,87 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+
+    private void onTextConvert1(CharSequence string) {
+        try {
+            switch (currentUnitType) {
+                case "Length":
+                    String spinnerUnitFrom = (String) spinnerFrom.getSelectedItem();
+                    String spinnerUnitTo = (String) spinnerTo.getSelectedItem();
+                    double value = Integer.parseInt(string.toString());
+                    double result = convert(value, spinnerUnitFrom, spinnerUnitTo);
+                    System.out.println(result);
+                    inputTo.setText(String.valueOf(result));
+                    break;
+                case "Speed":
+                    spinnerUnitFrom = (String) spinnerFrom.getSelectedItem();
+                    spinnerUnitTo = (String) spinnerTo.getSelectedItem();
+                    value = Integer.parseInt(string.toString());
+                    result = convertS(value, spinnerUnitFrom, spinnerUnitTo);
+                    System.out.println(result);
+                    inputTo.setText(String.valueOf(result));
+            }
+        } catch (Exception e) {
+        }
+
+    }
+    private void onTextConvert2(CharSequence string) {
+        try {
+
+            switch (currentUnitType) {
+                case "Length":
+                    String spinnerUnitFrom = (String) spinnerFrom.getSelectedItem();
+                    String spinnerUnitTo = (String) spinnerTo.getSelectedItem();
+                    double value = Integer.parseInt(string.toString());
+                    double result = convert(value, spinnerUnitTo, spinnerUnitFrom);
+                    System.out.println(result);
+                    inputFrom.setText(String.valueOf(result));
+                    break;
+                case "Speed":
+                    spinnerUnitFrom = (String) spinnerFrom.getSelectedItem();
+                    spinnerUnitTo = (String) spinnerTo.getSelectedItem();
+                    value = Integer.parseInt(string.toString());
+                    result = convertS(value, spinnerUnitTo, spinnerUnitFrom);
+                    System.out.println(result);
+                    inputFrom.setText(String.valueOf(result));
+            }
+        } catch (Exception e) {
+        }
+    }
+
+
+
+//    TextWatcher tw = new TextWatcher() {
+//        @Override
+//        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//        }
+//
+//        @Override
+//        public void onTextChanged(CharSequence string, int start, int before, int count) {
+//            try {
+//                //// TODO: 19/03/2017 Mabey try to simplify into a single method.
+//                String spinnerUnitFrom = (String) spinnerFrom.getSelectedItem();
+//                String spinnerUnitTo = (String) spinnerTo.getSelectedItem();
+//                double value = Integer.parseInt(string.toString());
+//                double result = convert(value, spinnerUnitFrom, spinnerUnitTo);
+//                System.out.println(result);
+//                inputTo.setText(String.valueOf(result));
+//            } catch (Exception e) {
+//            }
+//        }
+//
+//        @Override
+//        public void afterTextChanged(Editable s) {
+//
+//        }
+//    };
+//// TODO: 23/03/2017 try add an if statment for 'if speed convert speed units' and 'if length convert length units', might be faster?
     private double convert(double value, String spinnerUnitFrom, String spinnerUnitTo) {
 //// TODO: 19/03/2017 find better naming for spinnerUnit...
         double num1 = value;
-        double num2 = 0.0;
+        double num2 = 0;
 
         switch (spinnerUnitFrom) {
             case "Metre": {
@@ -161,7 +260,7 @@ public class MainActivity extends AppCompatActivity {
                         num2 = num1 / 100;
                         break;
                     case "Inches":
-                        num2 = num1 * 0.393701;
+                        num2 = num1 *2.54;
                         break;
                 }
                 break;
@@ -176,6 +275,51 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case "Centimetre":
                         num2 = num1 * 2.54;
+                        break;
+                }
+                break;
+            }
+            //Speed Conversion
+            case "Kilometres per hour": {
+                switch (spinnerUnitTo) {
+                    case "Kilometres per hour":
+                        num2 = num1;
+                        break;
+                    case "Metres per second":
+                        num2 = num1 * 0.277778;
+                        break;
+                    case "Miles per hour":
+                        num2 = num1 * 0.621371;
+                        break;
+                }
+                break;
+            }
+            case "Metres per second": {
+                switch (spinnerUnitTo) {
+                    case "Metres per second":
+                        num2 = num1;
+                        break;
+                    case "Kilometres per hour":
+                        num2 = num1 * 3.6;
+                        break;
+
+                    case "Miles per hour":
+                        num2 = num1 * 2.23694;
+                        break;
+                }
+                break;
+            }
+            case "Miles per hour": {
+                switch (spinnerUnitTo) {
+                    case "Miles per hour":
+                        num2 = num1;
+                        break;
+                    case "Kilometres per hour":
+                        num2 = num1 * 1.60934;
+                        break;
+                    case "Metres per second":
+                        num2 = num1 * 0.44704;
+                        break;
                 }
                 break;
             }
@@ -183,15 +327,57 @@ public class MainActivity extends AppCompatActivity {
         return num2;
     }
 
-    public void dataAdapter(String text){
-//// TODO: 19/03/2017 try to use intent
-        if (text.equals("length")){
-            spinnerFrom.setAdapter(adapter1);
-            spinnerTo.setAdapter(adapter1);
-        }else if (text.equals("speed")){
-            spinnerFrom.setAdapter(adapter2);
-            spinnerTo.setAdapter(adapter2);
+    private double convertS(double value, String spinnerUnitFrom, String spinnerUnitTo) {
+        double num1 = value;
+        double num2 = 0;
+
+        switch (spinnerUnitFrom) {
+            //Speed Conversion
+            case "Kilometres per hour": {
+                switch (spinnerUnitTo) {
+                    case "Kilometres per hour":
+                        num2 = num1;
+                        break;
+                    case "Metres per second":
+                        num2 = num1 * 0.277778;
+                        break;
+                    case "Miles per hour":
+                        num2 = num1 * 0.621371;
+                        break;
+                }
+                break;
+            }
+            case "Metres per second": {
+                switch (spinnerUnitTo) {
+                    case "Metres per second":
+                        num2 = num1;
+                        break;
+                    case "Kilometres per hour":
+                        num2 = num1 * 3.6;
+                        break;
+
+                    case "Miles per hour":
+                        num2 = num1 * 2.23694;
+                        break;
+                }
+                break;
+            }
+            case "Miles per hour": {
+                switch (spinnerUnitTo) {
+                    case "Miles per hour":
+                        num2 = num1;
+                        break;
+                    case "Kilometres per hour":
+                        num2 = num1 * 1.60934;
+                        break;
+                    case "Metres per second":
+                        num2 = num1 * 0.44704;
+                        break;
+                }
+                break;
+            }
         }
+        return num2;
     }
 }
 
