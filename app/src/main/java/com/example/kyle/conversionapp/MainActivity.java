@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity {
 
     private TextView unitTitle;
@@ -22,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayAdapter<CharSequence> adapter1;
     private ArrayAdapter<CharSequence> adapter2;
 
-    public String currentUnitType;
+    public String currentUnitType = String.valueOf(unitTitle);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         currentUnitType = rIntent.getStringExtra("unit");
         System.out.println(currentUnitType);
         unitTitle.setText(currentUnitType);
+        System.out.println(unitTitle);
 
         //// TODO: 19/03/2017
         try {
@@ -70,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         unitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Main2Activity.class);
+                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(intent);
             }
         });
@@ -104,16 +107,18 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence string, int start, int before, int count) {
-
                 //// TODO: 19/03/2017 Mabey try to simplify into a single method.
-                //onTextConvert1(string);
+
                 try {
+                    System.out.println("test from");
+                    //onTextConvert1(value);
                     String spinnerUnitFrom = (String) spinnerFrom.getSelectedItem();
                     String spinnerUnitTo = (String) spinnerTo.getSelectedItem();
                     double value = Integer.parseInt(string.toString());
                     double result = convert(value, spinnerUnitFrom, spinnerUnitTo);
                     System.out.println(result);
                     inputTo.setText(String.valueOf(result));
+
                 } catch (Exception e) {
                 }
 
@@ -134,11 +139,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence string, int start, int before, int count) {
                 //onTextConvert2(string);
+
                 try {
+                    System.out.println("test to");
                     String spinnerUnitFrom = (String) spinnerFrom.getSelectedItem();
                     String spinnerUnitTo = (String) spinnerTo.getSelectedItem();
                     double value = Integer.parseInt(string.toString());
-                    double result = convert(value,spinnerUnitTo, spinnerUnitFrom);
+                    double result = convert(value, spinnerUnitTo, spinnerUnitFrom);
                     System.out.println(result);
                     inputFrom.setText(String.valueOf(result));
 
@@ -155,81 +162,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-    private void onTextConvert1(CharSequence string) {
-        try {
-            switch (currentUnitType) {
-                case "Length":
-                    String spinnerUnitFrom = (String) spinnerFrom.getSelectedItem();
-                    String spinnerUnitTo = (String) spinnerTo.getSelectedItem();
-                    double value = Integer.parseInt(string.toString());
-                    double result = convert(value, spinnerUnitFrom, spinnerUnitTo);
-                    System.out.println(result);
-                    inputTo.setText(String.valueOf(result));
-                    break;
-                case "Speed":
-                    spinnerUnitFrom = (String) spinnerFrom.getSelectedItem();
-                    spinnerUnitTo = (String) spinnerTo.getSelectedItem();
-                    value = Integer.parseInt(string.toString());
-                    result = convertS(value, spinnerUnitFrom, spinnerUnitTo);
-                    System.out.println(result);
-                    inputTo.setText(String.valueOf(result));
-            }
-        } catch (Exception e) {
-        }
-
-    }
-    private void onTextConvert2(CharSequence string) {
-        try {
-
-            switch (currentUnitType) {
-                case "Length":
-                    String spinnerUnitFrom = (String) spinnerFrom.getSelectedItem();
-                    String spinnerUnitTo = (String) spinnerTo.getSelectedItem();
-                    double value = Integer.parseInt(string.toString());
-                    double result = convert(value, spinnerUnitTo, spinnerUnitFrom);
-                    System.out.println(result);
-                    inputFrom.setText(String.valueOf(result));
-                    break;
-                case "Speed":
-                    spinnerUnitFrom = (String) spinnerFrom.getSelectedItem();
-                    spinnerUnitTo = (String) spinnerTo.getSelectedItem();
-                    value = Integer.parseInt(string.toString());
-                    result = convertS(value, spinnerUnitTo, spinnerUnitFrom);
-                    System.out.println(result);
-                    inputFrom.setText(String.valueOf(result));
-            }
-        } catch (Exception e) {
-        }
-    }
-
-
-
-//    TextWatcher tw = new TextWatcher() {
-//        @Override
-//        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//        }
-//
-//        @Override
-//        public void onTextChanged(CharSequence string, int start, int before, int count) {
-//            try {
-//                //// TODO: 19/03/2017 Mabey try to simplify into a single method.
-//                String spinnerUnitFrom = (String) spinnerFrom.getSelectedItem();
-//                String spinnerUnitTo = (String) spinnerTo.getSelectedItem();
-//                double value = Integer.parseInt(string.toString());
-//                double result = convert(value, spinnerUnitFrom, spinnerUnitTo);
-//                System.out.println(result);
-//                inputTo.setText(String.valueOf(result));
-//            } catch (Exception e) {
-//            }
-//        }
-//
-//        @Override
-//        public void afterTextChanged(Editable s) {
-//
-//        }
-//    };
 //// TODO: 23/03/2017 try add an if statment for 'if speed convert speed units' and 'if length convert length units', might be faster?
     private double convert(double value, String spinnerUnitFrom, String spinnerUnitTo) {
 //// TODO: 19/03/2017 find better naming for spinnerUnit...
@@ -260,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
                         num2 = num1 / 100;
                         break;
                     case "Inches":
-                        num2 = num1 *2.54;
+                        num2 = num1 * 2.54;
                         break;
                 }
                 break;
@@ -279,6 +211,9 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
             }
+        }
+
+        switch (spinnerUnitFrom) {
             //Speed Conversion
             case "Kilometres per hour": {
                 switch (spinnerUnitTo) {
@@ -326,6 +261,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return num2;
     }
+
 
     private double convertS(double value, String spinnerUnitFrom, String spinnerUnitTo) {
         double num1 = value;
