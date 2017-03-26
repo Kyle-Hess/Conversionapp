@@ -12,8 +12,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.util.Objects;
-
 public class MainActivity extends AppCompatActivity {
 
     private TextView unitTitle;
@@ -24,7 +22,9 @@ public class MainActivity extends AppCompatActivity {
     private ArrayAdapter<CharSequence> adapter1;
     private ArrayAdapter<CharSequence> adapter2;
 
-    public String currentUnitType = String.valueOf(unitTitle);
+    boolean Length;
+
+    public String currentUnitType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +99,8 @@ public class MainActivity extends AppCompatActivity {
         //// TODO: 23/03/2017 Try and simplify the on text change input listeners into one listener
         //// TODO: 23/03/2017 Try to add an if or switch to separate Length and speed conversions for cleaner layout
 
+        Converter converter = new Converter();
+
         inputFrom.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -115,13 +117,13 @@ public class MainActivity extends AppCompatActivity {
                     String spinnerUnitFrom = (String) spinnerFrom.getSelectedItem();
                     String spinnerUnitTo = (String) spinnerTo.getSelectedItem();
                     double value = Integer.parseInt(string.toString());
-                    double result = convert(value, spinnerUnitFrom, spinnerUnitTo);
+                    double result = Converter.convert(value, spinnerUnitFrom, spinnerUnitTo);
                     System.out.println(result);
                     inputTo.setText(String.valueOf(result));
 
                 } catch (Exception e) {
-                }
 
+                }
             }
 
             @Override
@@ -145,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
                     String spinnerUnitFrom = (String) spinnerFrom.getSelectedItem();
                     String spinnerUnitTo = (String) spinnerTo.getSelectedItem();
                     double value = Integer.parseInt(string.toString());
-                    double result = convert(value, spinnerUnitTo, spinnerUnitFrom);
+                    double result = Converter.convert(value, spinnerUnitTo, spinnerUnitFrom);
                     System.out.println(result);
                     inputFrom.setText(String.valueOf(result));
 
@@ -160,161 +162,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
-
-//// TODO: 23/03/2017 try add an if statment for 'if speed convert speed units' and 'if length convert length units', might be faster?
-    private double convert(double value, String spinnerUnitFrom, String spinnerUnitTo) {
-//// TODO: 19/03/2017 find better naming for spinnerUnit...
-        double num1 = value;
-        double num2 = 0;
-
-        switch (spinnerUnitFrom) {
-            case "Metre": {
-                switch (spinnerUnitTo) {
-                    case "Metre":
-                        num2 = num1;
-                        break;
-                    case "Centimetre":
-                        num2 = num1 * 100;
-                        break;
-                    case "Inches":
-                        num2 = num1 * 39.3701;
-                        break;
-                }
-                break;
-            }
-            case "Centimetre": {
-                switch (spinnerUnitTo) {
-                    case "Centimetre":
-                        num2 = num1;
-                        break;
-                    case "Metre":
-                        num2 = num1 / 100;
-                        break;
-                    case "Inches":
-                        num2 = num1 * 2.54;
-                        break;
-                }
-                break;
-            }
-            case "Inches": {
-                switch (spinnerUnitTo) {
-                    case "Inches":
-                        num2 = num1;
-                        break;
-                    case "Metre":
-                        num2 = num1 * 0.0254;
-                        break;
-                    case "Centimetre":
-                        num2 = num1 * 2.54;
-                        break;
-                }
-                break;
-            }
-        }
-
-        switch (spinnerUnitFrom) {
-            //Speed Conversion
-            case "Kilometres per hour": {
-                switch (spinnerUnitTo) {
-                    case "Kilometres per hour":
-                        num2 = num1;
-                        break;
-                    case "Metres per second":
-                        num2 = num1 * 0.277778;
-                        break;
-                    case "Miles per hour":
-                        num2 = num1 * 0.621371;
-                        break;
-                }
-                break;
-            }
-            case "Metres per second": {
-                switch (spinnerUnitTo) {
-                    case "Metres per second":
-                        num2 = num1;
-                        break;
-                    case "Kilometres per hour":
-                        num2 = num1 * 3.6;
-                        break;
-
-                    case "Miles per hour":
-                        num2 = num1 * 2.23694;
-                        break;
-                }
-                break;
-            }
-            case "Miles per hour": {
-                switch (spinnerUnitTo) {
-                    case "Miles per hour":
-                        num2 = num1;
-                        break;
-                    case "Kilometres per hour":
-                        num2 = num1 * 1.60934;
-                        break;
-                    case "Metres per second":
-                        num2 = num1 * 0.44704;
-                        break;
-                }
-                break;
-            }
-        }
-        return num2;
-    }
-
-
-    private double convertS(double value, String spinnerUnitFrom, String spinnerUnitTo) {
-        double num1 = value;
-        double num2 = 0;
-
-        switch (spinnerUnitFrom) {
-            //Speed Conversion
-            case "Kilometres per hour": {
-                switch (spinnerUnitTo) {
-                    case "Kilometres per hour":
-                        num2 = num1;
-                        break;
-                    case "Metres per second":
-                        num2 = num1 * 0.277778;
-                        break;
-                    case "Miles per hour":
-                        num2 = num1 * 0.621371;
-                        break;
-                }
-                break;
-            }
-            case "Metres per second": {
-                switch (spinnerUnitTo) {
-                    case "Metres per second":
-                        num2 = num1;
-                        break;
-                    case "Kilometres per hour":
-                        num2 = num1 * 3.6;
-                        break;
-
-                    case "Miles per hour":
-                        num2 = num1 * 2.23694;
-                        break;
-                }
-                break;
-            }
-            case "Miles per hour": {
-                switch (spinnerUnitTo) {
-                    case "Miles per hour":
-                        num2 = num1;
-                        break;
-                    case "Kilometres per hour":
-                        num2 = num1 * 1.60934;
-                        break;
-                    case "Metres per second":
-                        num2 = num1 * 0.44704;
-                        break;
-                }
-                break;
-            }
-        }
-        return num2;
-    }
+    //// TODO: 23/03/2017 try add an if statment for 'if speed convert speed units' and 'if length convert length units', might be faster?
 }
 
 

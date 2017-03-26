@@ -68,7 +68,7 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        prefs.edit().putString("unit",String.valueOf(radioLength)).apply();
+        prefs.edit().putString("unit", String.valueOf(radioLength)).apply();
     }
 
 }
