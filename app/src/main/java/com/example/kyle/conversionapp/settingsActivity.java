@@ -23,7 +23,7 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        prefs = getSharedPreferences("Value", MODE_PRIVATE);
+        //prefs = getSharedPreferences("Value", MODE_PRIVATE);
 
         radioLength = (RadioButton) findViewById(R.id.radioLength);
         radioSpeed = (RadioButton) findViewById(R.id.radioSpeed);
@@ -53,22 +53,22 @@ public class SettingsActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        try {
-            //unitName = String.valueOf(radioLength);
-            unitName = prefs.getString("unit", String.valueOf(radioLength));
-
-        } catch (Exception e) {
-            unitName = "Length";
-        }
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        prefs.edit().putString("unit", String.valueOf(radioLength)).apply();
-    }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        try {
+//            //unitName = String.valueOf(radioLength);
+//            unitName = prefs.getString("unit", String.valueOf(radioLength));
+//
+//        } catch (Exception e) {
+//            unitName = "Length";
+//        }
+//    }
+//
+//    @Override
+//    protected void onStop() {
+//        super.onStop();
+//        prefs.edit().putString("unit", String.valueOf(radioLength)).apply();
+//    }
 
 }

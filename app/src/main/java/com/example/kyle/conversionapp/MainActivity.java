@@ -87,8 +87,6 @@ public class MainActivity extends AppCompatActivity {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     inputFrom.getText().clear();
-                }
-                if (hasFocus) {
                     inputTo.getText().clear();
                 }
             }

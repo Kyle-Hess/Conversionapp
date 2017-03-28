@@ -7,9 +7,14 @@
     <!-- Example General settings -->
     <string name="unit_prompt">Choose unit</string>
     <string-array name="length_array">
+        <item>Kilometre</item>
         <item>Metre</item>
         <item>Centimetre</item>
-        <item>Inches</item>
+        <item>Millimetre</item>
+        <item>Mile</item>
+        <item>Yard</item>
+        <item>Foot</item>
+        <item>Inch</item>
     </string-array>
 
     <string-array name="speed_array">
@@ -17,10 +22,8 @@
         <item>Metres per second</item>
         <item>Miles per hour</item>
     </string-array>
-    
-    
-    
-    
+
+
     <string name="pref_header_general">General</string>
 
     <string name="pref_title_social_recommendations">Enable social recommendations</string>
@@ -90,4 +93,6 @@
 
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="length">Length</string>
+    <string name="equals_symbol">=</string>
+    <string name="change_units_Button_text">Change units</string>
 </resources>

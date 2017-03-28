@@ -7,25 +7,71 @@ package com.example.kyle.conversionapp;
 public class Converter {
 
     public Converter(){
-        
+
     }
-//// TODO: 26/03/2017 Need to fix Speed conversion between km/s and m/s 
+
+    //// TODO: 26/03/2017 Need to fix Speed conversion between km/s and m/s
     public static double convert(double value, String spinnerUnitFrom, String spinnerUnitTo) {
 //// TODO: 19/03/2017 find better naming for spinnerUnit...
         double num1 = value;
-        double num2 = 0;
+        double num2 = 0.0d;
 
         switch (spinnerUnitFrom) {
+            case "Kilometre": {
+                switch (spinnerUnitTo) {
+                    case "Kilometre":
+                        num2 = num1;
+                        break;
+                    case "Metre":
+                        num2 = num1 * 1000.0d;
+                        break;
+                    case "Centimetre":
+                        num2 = num1 * 1e+5d;
+                        break;
+                    case "Millimetre":
+                        num2 = num1 / 1e+6;
+                        break;
+                    case "Mile":
+                        num2 = num1 / 1.60934d;
+                        break;
+                    case "Yard":
+                        num2 = num1 * 1093.61d;
+                        break;
+                    case "Foot":
+                        num2 = num1 * 3280.84d;
+                        break;
+                    case "Inch":
+                        num2 = num1 * 39370.1d;
+                        break;
+                }
+                break;
+            }
+
             case "Metre": {
                 switch (spinnerUnitTo) {
                     case "Metre":
                         num2 = num1;
                         break;
-                    case "Centimetre":
-                        num2 = num1 * 100;
+                    case "Kilometre":
+                        num2 = num1 * 0.001d;
                         break;
-                    case "Inches":
-                        num2 = num1 * 39.3701;
+                    case "Centimetre":
+                        num2 = num1 * 100.0d;
+                        break;
+                    case "Millimetre":
+                        num2 = num1 * 1000.0d;
+                        break;
+                    case "Mile":
+                        num2 = num1 / 1609.34d;
+                        break;
+                    case "Yard":
+                        num2 = num1 * 1.09361d;
+                        break;
+                    case "Foot":
+                        num2 = num1 * 3.28084d;
+                        break;
+                    case "Inch":
+                        num2 = num1 * 39.3701d;
                         break;
                 }
                 break;
@@ -35,72 +81,171 @@ public class Converter {
                     case "Centimetre":
                         num2 = num1;
                         break;
-                    case "Metre":
-                        num2 = num1 / 100;
+                    case "Kilometre":
+                        num2 = num1 * 1e-5;
                         break;
-                    case "Inches":
-                        num2 = num1 * 2.54;
+                    case "Metre":
+                        num2 = num1 * 0.01d;
+                        break;
+                    case "Millimetre":
+                        num2 = num1 * 10.0d;
+                        break;
+                    case "Mile":
+                        num2 = num1 / 160934.0d;
+                        break;
+                    case "Yard":
+                        num2 = num1 / 91.44d;
+                        break;
+                    case "Foot":
+                        num2 = num1 / 30.48d;
+                        break;
+                    case "Inch":
+                        num2 = num1 * 2.54d;
                         break;
                 }
                 break;
             }
-            case "Inches": {
+            case "Millimetre": {
                 switch (spinnerUnitTo) {
-                    case "Inches":
+                    case "Millimetre":
                         num2 = num1;
                         break;
+                    case "Kilometre":
+                        num2 = num1 * 1e-6;
+                        break;
                     case "Metre":
-                        num2 = num1 * 0.0254;
+                        num2 = num1 * 0.001d;
                         break;
                     case "Centimetre":
-                        num2 = num1 * 2.54;
+                        num2 = num1 * 0.1d;
+                        break;
+                    case "Mile":
+                        num2 = num1 / 1609000.0d;
+                        break;
+                    case "Yard":
+                        num2 = num1 / 914.4d;
+                        break;
+                    case "Foot":
+                        num2 = num1 / 304.8d;
+                        break;
+                    case "Inche":
+                        num2 = num1 * 25.4d;
                         break;
                 }
                 break;
             }
-        }
-
-        switch (spinnerUnitFrom) {
-            //Speed Conversion
-            case "Kilometres per hour": {
+            case "Mile": {
                 switch (spinnerUnitTo) {
-                    case "Kilometres per hour":
+                    case "Mile":
                         num2 = num1;
                         break;
-                    case "Metres per second":
-                        num2 = num1 * 0.277778;
+                    case "Kilometer":
+                        num2 = num1 * 1.60934d;
                         break;
-                    case "Miles per hour":
-                        num2 = num1 * 0.621371;
+                    case "Meter":
+                        num2 = num1 * 1609.34d;
+                        break;
+                    case "Centimeter":
+                        num2 = num1 * 160934.0d;
+                        break;
+                    case "Millimeter":
+                        num2 = num1 * 1609340.0d;
+                        break;
+                    case "Yard":
+                        num2 = num1 * 1760.0d;
+                        break;
+                    case "Foot":
+                        num2 = num1 * 5280.0d;
+                        break;
+                    case "Inch":
+                        num2 = num1 * 6330.0d;
                         break;
                 }
                 break;
             }
-            case "Metres per second": {
+            case "Yard": {
                 switch (spinnerUnitTo) {
-                    case "Metres per second":
+                    case "Yard":
                         num2 = num1;
                         break;
-                    case "Kilometres per hour":
-                        num2 = num1 * 3.6;
+                    case "Kilometer":
+                        num2 = num1 / 1093.61d;
                         break;
-
-                    case "Miles per hour":
-                        num2 = num1 * 2.23694;
+                    case "Meter":
+                        num2 = num1 * 0.9144d;
+                        break;
+                    case "Centimeter":
+                        num2 = num1 * 91.44d;
+                        break;
+                    case "Millimeter":
+                        num2 = num1 * 914.4d;
+                        break;
+                    case "Mile":
+                        num2 = num1 / 1760.0d;
+                        break;
+                    case "Foot":
+                        num2 = num1 * 3.0d;
+                        break;
+                    case "Inch":
+                        num2 = num1 * 36.0d;
                         break;
                 }
                 break;
             }
-            case "Miles per hour": {
+            case "Foot": {
                 switch (spinnerUnitTo) {
-                    case "Miles per hour":
+                    case "Foot":
                         num2 = num1;
                         break;
-                    case "Kilometres per hour":
-                        num2 = num1 * 1.60934;
+                    case "Kilometer":
+                        num2 = num1 * 0.0003048d;
                         break;
-                    case "Metres per second":
-                        num2 = num1 * 0.44704;
+                    case "Meter":
+                        num2 = num1 * 0.3048d;
+                        break;
+                    case "Centimeter":
+                        num2 = num1 * 30.48d;
+                        break;
+                    case "Millimeter":
+                        num2 = num1 * 304.8d;
+                        break;
+                    case "Mile":
+                        num2 = num1 / 5280.0d;
+                        break;
+                    case "Yard":
+                        num2 = num1 / 3.0d;
+                        break;
+                    case "Inch":
+                        num2 = num1 * 12.0d;
+                        break;
+                }
+                break;
+            }
+            case "Inch": {
+                switch (spinnerUnitTo) {
+                    case "Inch":
+                        num2 = num1;
+                        break;
+                    case "Kilometer":
+                        num2 = num1 * 0.0000254d;
+                        break;
+                    case "Metre":
+                        num2 = num1 * 0.0254d;
+                        break;
+                    case "Centimetre":
+                        num2 = num1 * 2.54d;
+                        break;
+                    case "Millimeter":
+                        num2 = num1 * 25.4d;
+                        break;
+                    case "Mile":
+                        num2 = num1 / 63360.0d;
+                        break;
+                    case "Yard":
+                        num2 = num1 / 36.0d;
+                        break;
+                    case "Foot":
+                        num2 = num1 / 12.0d;
                         break;
                 }
                 break;
@@ -108,6 +253,56 @@ public class Converter {
         }
         return num2;
     }
+
+//Speed Conversion
+//        switch (spinnerUnitFrom) {
+//
+//            case "Kilometres per hour": {
+//                switch (spinnerUnitTo) {
+//                    case "Kilometres per hour":
+//                        num2 = num1;
+//                        break;
+//                    case "Metres per second":
+//                        num2 = num1 * 0.277778;
+//                        break;
+//                    case "Miles per hour":
+//                        num2 = num1 * 0.621371;
+//                        break;
+//                }
+//                break;
+//            }
+//            case "Metres per second": {
+//                switch (spinnerUnitTo) {
+//                    case "Metres per second":
+//                        num2 = num1;
+//                        break;
+//                    case "Kilometres per hour":
+//                        num2 = num1 * 3.6;
+//                        break;
+//
+//                    case "Miles per hour":
+//                        num2 = num1 * 2.23694;
+//                        break;
+//                }
+//                break;
+//            }
+//            case "Miles per hour": {
+//                switch (spinnerUnitTo) {
+//                    case "Miles per hour":
+//                        num2 = num1;
+//                        break;
+//                    case "Kilometres per hour":
+//                        num2 = num1 * 1.60934;
+//                        break;
+//                    case "Metres per second":
+//                        num2 = num1 * 0.44704;
+//                        break;
+//                }
+//                break;
+//            }
+//        }
+//        return num2;
+//    }
 
 
     private double convertSpeed(double value, String spinnerUnitFrom, String spinnerUnitTo) {

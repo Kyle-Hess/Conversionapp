@@ -9,31 +9,34 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.kyle.conversionapp.MainActivity">
+    tools:context="com.example.kyle.conversionapp.MainActivity"
+    android:background="@color/backgound">
 
-        <LinearLayout
-            android:orientation="horizontal"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:text="Length"
+            android:textAppearance="@android:style/TextAppearance.Material.Headline"
+            android:layout_marginEnd="50sp"
+            android:id="@+id/unit_title"
+            android:padding="5sp"
+            android:textColor="@android:color/background_light" />
+
+        <Button
+            android:text="@string/change_units_Button_text"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:id="@+id/button"
+            android:background="@color/Button" />
 
-            <TextView
-                android:text="Length"
-                android:textAppearance="@android:style/TextAppearance.Material.Headline"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_marginEnd="50sp"
-                android:id="@+id/unit_title" />
+    </LinearLayout>
 
-            <Button
-                android:text="Change units"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/button"
-                android:elevation="0dp" />
-
-        </LinearLayout>
-
-        <EditText
+    <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
@@ -41,7 +44,6 @@
             android:id="@+id/input_from"
             android:layout_marginTop="27dp"
             tools:text="input 1" />
-
 
         <Spinner
             android:id="@+id/spinner_from"
@@ -51,7 +53,7 @@
             android:layout_height="50sp" />
 
         <TextView
-            android:text="="
+            android:text="@string/equals_symbol"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/textView4"
