@@ -1,6 +1,10 @@
 package com.example.kyle.conversionapp;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -19,48 +23,57 @@ public class MainActivity extends AppCompatActivity {
     private Spinner spinnerTo;
     private EditText inputFrom;
     private EditText inputTo;
-    private ArrayAdapter<CharSequence> adapter1;
-    private ArrayAdapter<CharSequence> adapter2;
+    private ArrayAdapter<CharSequence> adapterLength;
+    private ArrayAdapter<CharSequence> adapterSpeed;
+    SharedPreferences prefs;
 
-    boolean Length;
-
-    public String currentUnitType;
+    public String currentUnitType ="Length";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         unitTitle = (TextView) findViewById(R.id.unit_title);
         spinnerFrom = (Spinner) findViewById(R.id.spinner_from);
         spinnerTo = (Spinner) findViewById(R.id.spinner_to);
 
-        adapter1 = ArrayAdapter.createFromResource(this, R.array.length_array, android.R.layout.simple_spinner_item);
-        adapter2 = ArrayAdapter.createFromResource(this, R.array.speed_array, android.R.layout.simple_spinner_item);
+        adapterLength = ArrayAdapter.createFromResource(this, R.array.length_array, android.R.layout.simple_spinner_item);
+        adapterSpeed = ArrayAdapter.createFromResource(this, R.array.speed_array, android.R.layout.simple_spinner_item);
 
-        spinnerFrom.setAdapter(adapter1);
-        spinnerTo.setAdapter(adapter1);
+        spinnerFrom.setAdapter(adapterLength);
+        spinnerTo.setAdapter(adapterLength);
 
         inputFrom = (EditText) findViewById(R.id.input_from);
         inputTo = (EditText) findViewById(R.id.input_to);
+        //getStart();
 
+
+//        prefs = PreferenceManager.getDefaultSharedPreferences(this.getBaseContext());
+//        currentUnitType = prefs.getString("prefs",currentUnitType);
+//        unitTitle.setText(currentUnitType);
+
+
+
+//// TODO: 19/03/2017 put into method
         Intent rIntent = getIntent();
         currentUnitType = rIntent.getStringExtra("unit");
         System.out.println(currentUnitType);
         unitTitle.setText(currentUnitType);
         System.out.println(unitTitle);
 
-        //// TODO: 19/03/2017
         try {
             switch (currentUnitType) {
                 case "Length":
-                    spinnerFrom.setAdapter(adapter1);
-                    spinnerTo.setAdapter(adapter1);
+                    spinnerFrom.setAdapter(adapterLength);
+                    spinnerTo.setAdapter(adapterLength);
                     unitTitle.setText(currentUnitType);
                     break;
                 case "Speed":
-                    spinnerFrom.setAdapter(adapter2);
-                    spinnerTo.setAdapter(adapter2);
+                    spinnerFrom.setAdapter(adapterSpeed);
+                    spinnerTo.setAdapter(adapterSpeed);
                     unitTitle.setText(currentUnitType);
                     break;
             }
@@ -97,6 +110,8 @@ public class MainActivity extends AppCompatActivity {
         //// TODO: 23/03/2017 Try and simplify the on text change input listeners into one listener
         //// TODO: 23/03/2017 Try to add an if or switch to separate Length and speed conversions for cleaner layout
 
+        //// TODO: 31/03/2017 Fix inputing decimal numbers
+
         Converter converter = new Converter();
 
         inputFrom.addTextChangedListener(new TextWatcher() {
@@ -115,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
                     String spinnerUnitFrom = (String) spinnerFrom.getSelectedItem();
                     String spinnerUnitTo = (String) spinnerTo.getSelectedItem();
                     double value = Integer.parseInt(string.toString());
-                    double result = Converter.convert(value, spinnerUnitFrom, spinnerUnitTo);
+                    double result = Converter.convert(currentUnitType,value, spinnerUnitFrom, spinnerUnitTo);
                     System.out.println(result);
                     inputTo.setText(String.valueOf(result));
 
@@ -145,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
                     String spinnerUnitFrom = (String) spinnerFrom.getSelectedItem();
                     String spinnerUnitTo = (String) spinnerTo.getSelectedItem();
                     double value = Integer.parseInt(string.toString());
-                    double result = Converter.convert(value, spinnerUnitTo, spinnerUnitFrom);
+                    double result = Converter.convert(currentUnitType, value, spinnerUnitTo, spinnerUnitFrom);
                     System.out.println(result);
                     inputFrom.setText(String.valueOf(result));
 
@@ -160,6 +175,17 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+    private void getStart() {
+        Intent rIntent = getIntent();
+        currentUnitType = rIntent.getStringExtra("unit");
+        System.out.println(currentUnitType);
+        unitTitle.setText(currentUnitType);
+        System.out.println(unitTitle);
+
+    }
+
+
     //// TODO: 23/03/2017 try add an if statment for 'if speed convert speed units' and 'if length convert length units', might be faster?
 }
 
