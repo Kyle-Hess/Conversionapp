@@ -19,22 +19,20 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     private TextView unitTitle;
+    public String currentUnitType;
     private Spinner spinnerFrom;
     private Spinner spinnerTo;
     private EditText inputFrom;
     private EditText inputTo;
     private ArrayAdapter<CharSequence> adapterLength;
     private ArrayAdapter<CharSequence> adapterSpeed;
-    SharedPreferences prefs;
 
-    public String currentUnitType ="Length";
+    SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
 
         unitTitle = (TextView) findViewById(R.id.unit_title);
         spinnerFrom = (Spinner) findViewById(R.id.spinner_from);
@@ -50,19 +48,8 @@ public class MainActivity extends AppCompatActivity {
         inputTo = (EditText) findViewById(R.id.input_to);
         //getStart();
 
-
-//        prefs = PreferenceManager.getDefaultSharedPreferences(this.getBaseContext());
-//        currentUnitType = prefs.getString("prefs",currentUnitType);
-//        unitTitle.setText(currentUnitType);
-
-
-
-//// TODO: 19/03/2017 put into method
-        Intent rIntent = getIntent();
-        currentUnitType = rIntent.getStringExtra("unit");
-        System.out.println(currentUnitType);
-        unitTitle.setText(currentUnitType);
-        System.out.println(unitTitle);
+        prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+        currentUnitType = prefs.getString("prefRadio", "");
 
         try {
             switch (currentUnitType) {
@@ -90,9 +77,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-//        inputFrom.addTextChangedListener(tw);
-//        inputTo.addTextChangedListener(tw);
 
 
         View.OnFocusChangeListener f = new View.OnFocusChangeListener() {
@@ -130,9 +114,11 @@ public class MainActivity extends AppCompatActivity {
                     String spinnerUnitFrom = (String) spinnerFrom.getSelectedItem();
                     String spinnerUnitTo = (String) spinnerTo.getSelectedItem();
                     double value = Integer.parseInt(string.toString());
-                    double result = Converter.convert(currentUnitType,value, spinnerUnitFrom, spinnerUnitTo);
+                    double result = Converter.convert(currentUnitType, value, spinnerUnitFrom, spinnerUnitTo);
                     System.out.println(result);
-                    inputTo.setText(String.valueOf(result));
+                    //// TODO: 4/04/2017 Fix formating decimals
+                    String output = String.valueOf(result);
+                    inputTo.setText(String.format("%.4f",output));
 
                 } catch (Exception e) {
 

@@ -2,7 +2,7 @@ package com.example.kyle.conversionapp;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
+import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,15 +10,13 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import java.util.prefs.Preferences;
-
 public class SettingsActivity extends AppCompatActivity {
 
     private RadioButton radioLength;
     private RadioButton radioSpeed;
     private Button confirm;
-
     SharedPreferences prefs;
+
     String unitName;
     private RadioGroup radioButtonGroup;
 
@@ -40,39 +38,29 @@ public class SettingsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
 
-                //prefs.edit().putString("prefs",unitName).apply();
+                prefs.edit().putString("prefRadio",unitName).apply();
 
-                intent.putExtra("unit", unitName);
+                //intent.putExtra("unit", unitName);
                 System.out.println(unitName);
                 startActivity(intent);
             }
         });
 
-        radioLength.setOnClickListener(new View.OnClickListener() {
+        radioButtonGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                ApplyButton();
-                //unitName = "Length";
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                updatePrefButton();
             }
         });
 
-        radioSpeed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ApplyButton();
-                //unitName = "Speed";
-            }
-        });
     }
 
-    private void ApplyButton() {
+    private void updatePrefButton() {
         int radioButtonID = radioButtonGroup.getCheckedRadioButtonId();
         View radioButtonG = radioButtonGroup.findViewById(radioButtonID);
-        int index = radioButtonGroup.indexOfChild(radioButtonG);
-        System.out.println(index);
-
-        RadioButton r = (RadioButton) radioButtonGroup.getChildAt(index);
+        RadioButton r = (RadioButton) radioButtonG;
         unitName = r.getText().toString();
+        prefs.edit().putString("prefRadio",unitName).apply();
         System.out.println(unitName);
 
     }
@@ -82,26 +70,26 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         try {
+            unitName = prefs.getString("prefRadio", unitName);
 
-            unitName = prefs.getString("prefs", unitName);
-
-//            switch (unitName){
-//                case "Length":
-//                    unitName = prefs.getString("unit", String.valueOf(radioLength));
-//                case "Speed":
-//                    unitName = prefs.getString("unit", String.valueOf(radioSpeed));
-//            }
-            //unitName = String.valueOf(radioLength);
+            switch (unitName){
+                case "Length":
+                    radioButtonGroup.check(R.id.radioLength);
+                    break;
+                case "Speed":
+                    radioButtonGroup.check(R.id.radioSpeed);
+                    break;
+            }
 
         } catch (Exception e) {
-            unitName = "Length";
+            radioButtonGroup.check(R.id.radioLength);
         }
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        prefs.edit().putString("prefs", unitName).apply();
+        prefs.edit().putString("prefRadio", unitName).apply();
     }
 
 }

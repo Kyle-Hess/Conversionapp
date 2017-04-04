@@ -23,7 +23,7 @@
             android:layout_height="match_parent"
             android:layout_marginEnd="50sp"
             android:padding="5sp"
-            android:text="@string/length"
+            android:text="@string/unit_title"
             android:textAppearance="@android:style/TextAppearance.Material.Headline"
             android:textColor="@android:color/background_light" />
 
