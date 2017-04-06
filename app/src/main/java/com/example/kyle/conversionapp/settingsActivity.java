@@ -32,13 +32,12 @@ public class SettingsActivity extends AppCompatActivity {
 
         radioButtonGroup = (RadioGroup) findViewById(R.id.unit_group);
 
-
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
 
-                prefs.edit().putString("prefRadio",unitName).apply();
+                prefs.edit().putString("prefRadio", unitName).apply();
 
                 //intent.putExtra("unit", unitName);
                 System.out.println(unitName);
@@ -52,7 +51,6 @@ public class SettingsActivity extends AppCompatActivity {
                 updatePrefButton();
             }
         });
-
     }
 
     private void updatePrefButton() {
@@ -60,11 +58,10 @@ public class SettingsActivity extends AppCompatActivity {
         View radioButtonG = radioButtonGroup.findViewById(radioButtonID);
         RadioButton r = (RadioButton) radioButtonG;
         unitName = r.getText().toString();
-        prefs.edit().putString("prefRadio",unitName).apply();
+        prefs.edit().putString("prefRadio", unitName).apply();
         System.out.println(unitName);
 
     }
-
 
     @Override
     protected void onStart() {
@@ -72,7 +69,7 @@ public class SettingsActivity extends AppCompatActivity {
         try {
             unitName = prefs.getString("prefRadio", unitName);
 
-            switch (unitName){
+            switch (unitName) {
                 case "Length":
                     radioButtonGroup.check(R.id.radioLength);
                     break;
@@ -80,7 +77,6 @@ public class SettingsActivity extends AppCompatActivity {
                     radioButtonGroup.check(R.id.radioSpeed);
                     break;
             }
-
         } catch (Exception e) {
             radioButtonGroup.check(R.id.radioLength);
         }
@@ -91,5 +87,4 @@ public class SettingsActivity extends AppCompatActivity {
         super.onStop();
         prefs.edit().putString("prefRadio", unitName).apply();
     }
-
 }

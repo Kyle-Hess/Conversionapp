@@ -15,7 +15,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:background="@color/heading"
+        android:orientation="horizontal"
+        android:padding="5sp">
 
         <TextView
             android:id="@+id/unit_title"
@@ -39,47 +41,60 @@
     <EditText
         android:id="@+id/input_from"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70sp"
         android:ems="10"
         android:inputType="numberDecimal"
         android:textColor="@android:color/background_light"
+        android:textColorLink="@color/textColour"
         android:textSize="30sp"
         tools:text="input 1" />
 
-    <Spinner
-        android:id="@+id/spinner_from"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60sp"
-        android:entries="@array/length_array"
-        android:padding="5sp"
-        android:prompt="@string/unit_prompt"/>
+        android:layout_height="wrap_content"
+        android:background="@color/Spinner">
 
+        <Spinner
+            android:id="@+id/spinner_from"
+            android:layout_width="match_parent"
+            android:layout_height="60sp"
+            android:entries="@array/length_array"
+            android:padding="5sp"
+            android:prompt="@string/unit_prompt" />
+    </LinearLayout>
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/equals_symbol"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/equals_symbol"
         android:textAlignment="center"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/input_to"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70sp"
         android:ems="10"
         android:inputType="numberDecimal"
         android:textColor="@android:color/background_light"
+        android:textColorLink="@color/textColour"
         android:textSize="30sp"
         tools:text="input 2" />
 
-    <Spinner
-        android:id="@+id/spinner_to"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60sp"
-        android:entries="@array/length_array"
-        android:padding="5sp"
-        android:prompt="@string/unit_prompt"
-        android:spinnerMode="dropdown" />
+        android:layout_height="wrap_content"
+        android:background="@color/Spinner">
 
+        <Spinner
+            android:id="@+id/spinner_to"
+            android:layout_width="match_parent"
+            android:layout_height="60sp"
+            android:entries="@array/length_array"
+            android:padding="5sp"
+            android:prompt="@string/unit_prompt"
+            android:spinnerMode="dropdown" />
+    </LinearLayout>
 </LinearLayout>
 

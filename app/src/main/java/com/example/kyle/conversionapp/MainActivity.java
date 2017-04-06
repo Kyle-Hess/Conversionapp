@@ -1,10 +1,7 @@
 package com.example.kyle.conversionapp;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -17,7 +14,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-
     private TextView unitTitle;
     public String currentUnitType;
     private Spinner spinnerFrom;
@@ -26,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText inputTo;
     private ArrayAdapter<CharSequence> adapterLength;
     private ArrayAdapter<CharSequence> adapterSpeed;
+
+    private boolean repeatingText = true;
 
     SharedPreferences prefs;
 
@@ -46,29 +44,16 @@ public class MainActivity extends AppCompatActivity {
 
         inputFrom = (EditText) findViewById(R.id.input_from);
         inputTo = (EditText) findViewById(R.id.input_to);
-        //getStart();
 
         prefs = getSharedPreferences("prefs", MODE_PRIVATE);
         currentUnitType = prefs.getString("prefRadio", "");
 
-        try {
-            switch (currentUnitType) {
-                case "Length":
-                    spinnerFrom.setAdapter(adapterLength);
-                    spinnerTo.setAdapter(adapterLength);
-                    unitTitle.setText(currentUnitType);
-                    break;
-                case "Speed":
-                    spinnerFrom.setAdapter(adapterSpeed);
-                    spinnerTo.setAdapter(adapterSpeed);
-                    unitTitle.setText(currentUnitType);
-                    break;
-            }
-        } catch (Exception e) {
+        //changed spinner items to the selected unit name
+        changeUnitAdapters();
 
-        }
+        //test();
 
-        //Button to Unit selection screen
+        //Button to Unit selection (settings) screen
         Button unitButton = (Button) findViewById(R.id.button);
         unitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,8 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
+        //clears the text input areas when selected
         View.OnFocusChangeListener f = new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -92,12 +76,6 @@ public class MainActivity extends AppCompatActivity {
         inputTo.setOnFocusChangeListener(f);
 
         //// TODO: 23/03/2017 Try and simplify the on text change input listeners into one listener
-        //// TODO: 23/03/2017 Try to add an if or switch to separate Length and speed conversions for cleaner layout
-
-        //// TODO: 31/03/2017 Fix inputing decimal numbers
-
-        Converter converter = new Converter();
-
         inputFrom.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -106,19 +84,22 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence string, int start, int before, int count) {
-                //// TODO: 19/03/2017 Mabey try to simplify into a single method.
-
                 try {
                     System.out.println("test from");
                     //onTextConvert1(value);
                     String spinnerUnitFrom = (String) spinnerFrom.getSelectedItem();
-                    String spinnerUnitTo = (String) spinnerTo.getSelectedItem();
-                    double value = Integer.parseInt(string.toString());
+                    String spinnerUnitTo = (String) spinnerTo.getSelectedItem();//                    double value = Integer.parseInt(string.toString());
+                    double value = Double.valueOf(inputFrom.getText().toString());
                     double result = Converter.convert(currentUnitType, value, spinnerUnitFrom, spinnerUnitTo);
+                    //String output = String.valueOf(result);
+                    //String output = Double.toString(result);
+                    if (repeatingText) {
+                        repeatingText = false;
+                        inputTo.setText(String.valueOf(String.format("%.6f", result)));
+                    } else {
+                        repeatingText = true;
+                    }
                     System.out.println(result);
-                    //// TODO: 4/04/2017 Fix formating decimals
-                    String output = String.valueOf(result);
-                    inputTo.setText(String.format("%.4f",output));
 
                 } catch (Exception e) {
 
@@ -139,16 +120,21 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence string, int start, int before, int count) {
-                //onTextConvert2(string);
-
                 try {
                     System.out.println("test to");
                     String spinnerUnitFrom = (String) spinnerFrom.getSelectedItem();
                     String spinnerUnitTo = (String) spinnerTo.getSelectedItem();
-                    double value = Integer.parseInt(string.toString());
+                    double value = Double.valueOf(inputTo.getText().toString());
                     double result = Converter.convert(currentUnitType, value, spinnerUnitTo, spinnerUnitFrom);
                     System.out.println(result);
-                    inputFrom.setText(String.valueOf(result));
+                    //String output = Double.toString(result);
+                    if (repeatingText) {
+                        repeatingText = false;
+                        inputFrom.setText(String.valueOf(String.format("%.6f", result)));
+                    } else {
+                        repeatingText = true;
+                    }
+                    //inputFrom.setText(String.valueOf(String.format("%.6f",result)));
 
                 } catch (Exception e) {
                 }
@@ -159,20 +145,26 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
-    private void getStart() {
-        Intent rIntent = getIntent();
-        currentUnitType = rIntent.getStringExtra("unit");
-        System.out.println(currentUnitType);
-        unitTitle.setText(currentUnitType);
-        System.out.println(unitTitle);
+    private void changeUnitAdapters() {
+        try {
+            switch (currentUnitType) {
+                case "Length":
+                    spinnerFrom.setAdapter(adapterLength);
+                    spinnerTo.setAdapter(adapterLength);
+                    unitTitle.setText(currentUnitType);
+                    break;
+                case "Speed":
+                    spinnerFrom.setAdapter(adapterSpeed);
+                    spinnerTo.setAdapter(adapterSpeed);
+                    unitTitle.setText(currentUnitType);
+                    break;
+            }
+        } catch (Exception e) {
 
+        }
     }
-
-
-    //// TODO: 23/03/2017 try add an if statment for 'if speed convert speed units' and 'if length convert length units', might be faster?
 }
 
 
