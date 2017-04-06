@@ -11,19 +11,17 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 public class SettingsActivity extends AppCompatActivity {
-
+    private RadioGroup radioButtonGroup;
     private RadioButton radioLength;
     private RadioButton radioSpeed;
     private Button confirm;
     SharedPreferences prefs;
-
     String unitName;
-    private RadioGroup radioButtonGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_settings);
         prefs = getSharedPreferences("prefs", MODE_PRIVATE);
 
         radioLength = (RadioButton) findViewById(R.id.radioLength);

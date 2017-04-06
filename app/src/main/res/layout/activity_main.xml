@@ -23,7 +23,7 @@
             android:id="@+id/unit_title"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginEnd="50sp"
+            android:layout_marginEnd="20sp"
             android:padding="5sp"
             android:text="@string/unit_title"
             android:textAppearance="@android:style/TextAppearance.Material.Headline"
