@@ -15,6 +15,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5sp"
         android:background="@color/heading"
         android:orientation="horizontal"
         android:padding="5sp">
@@ -38,17 +39,6 @@
 
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/input_from"
-        android:layout_width="match_parent"
-        android:layout_height="70sp"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        android:textColor="@android:color/background_light"
-        android:textColorLink="@color/textColour"
-        android:textSize="30sp"
-        tools:text="input 1" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -62,6 +52,18 @@
             android:padding="5sp"
             android:prompt="@string/unit_prompt" />
     </LinearLayout>
+
+    <EditText
+        android:id="@+id/input_from"
+        android:layout_width="match_parent"
+        android:layout_height="70sp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:textColor="@android:color/background_light"
+        android:textColorLink="@color/textColour"
+        android:textSize="30sp"
+        tools:text="input 1" />
+
     <TextView
         android:id="@+id/equals_symbol"
         android:layout_width="match_parent"
@@ -70,17 +72,6 @@
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold" />
-
-    <EditText
-        android:id="@+id/input_to"
-        android:layout_width="match_parent"
-        android:layout_height="70sp"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        android:textColor="@android:color/background_light"
-        android:textColorLink="@color/textColour"
-        android:textSize="30sp"
-        tools:text="input 2" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -96,5 +87,17 @@
             android:prompt="@string/unit_prompt"
             android:spinnerMode="dropdown" />
     </LinearLayout>
+
+    <EditText
+        android:id="@+id/input_to"
+        android:layout_width="match_parent"
+        android:layout_height="70sp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:textColor="@android:color/background_light"
+        android:textColorLink="@color/textColour"
+        android:textSize="30sp"
+        tools:text="input 2" />
+
 </LinearLayout>
 
