@@ -41,6 +41,27 @@
                 android:text="Speed"
                 android:textColor="@android:color/background_light"
                 android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/radioTemperature"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="10sp"
+                android:text="Temperature"
+                android:textColor="@android:color/background_light"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/radioMass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="10sp"
+                android:text="Mass"
+                android:textColor="@android:color/background_light"
+                android:textSize="20sp" />
+
         </RadioGroup>
         <Button
             android:id="@+id/buttonConfirm"

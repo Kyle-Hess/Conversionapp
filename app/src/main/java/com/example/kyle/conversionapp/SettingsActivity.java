@@ -12,8 +12,6 @@ import android.widget.RadioGroup;
 
 public class SettingsActivity extends AppCompatActivity {
     private RadioGroup radioButtonGroup;
-    private RadioButton radioLength;
-    private RadioButton radioSpeed;
     private Button confirm;
     SharedPreferences prefs;
     String unitName;
@@ -24,20 +22,14 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
         prefs = getSharedPreferences("prefs", MODE_PRIVATE);
 
-        radioLength = (RadioButton) findViewById(R.id.radioLength);
-        radioSpeed = (RadioButton) findViewById(R.id.radioSpeed);
         confirm = (Button) findViewById(R.id.buttonConfirm);
-
         radioButtonGroup = (RadioGroup) findViewById(R.id.unit_group);
 
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
-
                 prefs.edit().putString("prefRadio", unitName).apply();
-
-                //intent.putExtra("unit", unitName);
                 System.out.println(unitName);
                 startActivity(intent);
             }
@@ -50,7 +42,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
     }
-
+//gets the name of the selected radio Button and saves it the Shared prefs.
     private void updatePrefButton() {
         int radioButtonID = radioButtonGroup.getCheckedRadioButtonId();
         View radioButtonG = radioButtonGroup.findViewById(radioButtonID);
@@ -58,9 +50,9 @@ public class SettingsActivity extends AppCompatActivity {
         unitName = r.getText().toString();
         prefs.edit().putString("prefRadio", unitName).apply();
         System.out.println(unitName);
-
     }
 
+//when the app starts up again, the unit name is retrieved and radio button set from the users last unit choice
     @Override
     protected void onStart() {
         super.onStart();
@@ -74,12 +66,18 @@ public class SettingsActivity extends AppCompatActivity {
                 case "Speed":
                     radioButtonGroup.check(R.id.radioSpeed);
                     break;
+                case "Temperature":
+                    radioButtonGroup.check(R.id.radioTemperature);
+                    break;
+                case "Mass":
+                    radioButtonGroup.check(R.id.radioMass);
+                    break;
             }
         } catch (Exception e) {
             radioButtonGroup.check(R.id.radioLength);
         }
     }
-
+//when the app is closed, the unit named is saved
     @Override
     protected void onStop() {
         super.onStop();

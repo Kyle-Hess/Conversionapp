@@ -1,17 +1,27 @@
 package com.example.kyle.conversionapp;
 
+import android.content.SharedPreferences;
 import android.widget.Switch;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by Kyle on 26/03/2017.
  */
 
 public class Converter {
+    private String currentUnit;
+    SharedPreferences prefs;
+
 
     public Converter() {
+        currentUnit = prefs.getString("prefRadio", "");
+        System.out.println(currentUnit);
     }
 
     public static double convert(String currentUnitType, double value, String spinnerUnitFrom, String spinnerUnitTo) {
+
+
 //// TODO: 19/03/2017 find better naming for spinnerUnit...
         String unitType = currentUnitType;
         double num1 = value;
@@ -254,9 +264,9 @@ public class Converter {
                 }
             }
             return num2;
-
+        }
 //Speed Conversion
-        } else if (unitType.equals("Speed")) {
+         else if (unitType.equals("Speed")) {
             switch (spinnerUnitFrom) {
                 case "Kilometres per hour": {
                     switch (spinnerUnitTo) {
@@ -302,7 +312,131 @@ public class Converter {
                     break;
                 }
             }
-        }return num2;
+            return num2;
+         }
+//Temperature Conversion
+        else if (unitType.equals("Temperature")) {
+            switch (spinnerUnitFrom) {
+                case "Celsius": {
+                    switch (spinnerUnitTo) {
+                        case "Celsius":
+                            num2 = num1;
+                            break;
+                        case "Fahrenheit":
+                            num2 = (num1 * 1.8) + 32;
+                            break;
+                        case "Kelvin":
+                            num2 = num1 + 273.15;
+                            break;
+                    }
+                    break;
+                }
+                case "Fahrenheit": {
+                    switch (spinnerUnitTo) {
+                        case "Fahrenheit":
+                            num2 = num1;
+                            break;
+                        case "Celsius":
+                            num2 = (num1 - 32) / 1.8;
+                            break;
+
+                        case "Kelvin":
+                            num2 = (num1 + 459.67) * 5 / 9;
+                            break;
+                    }
+                    break;
+                }
+                case "Kelvin": {
+                    switch (spinnerUnitTo) {
+                        case "Kelvin":
+                            num2 = num1;
+                            break;
+                        case "Celsius":
+                            num2 = num1 - 273.15;
+                            break;
+                        case "Fahrenheit":
+                            num2 = num1 * 9 / 5 - 459.67;
+                            break;
+                    }
+                    break;
+                }
+            }
+            return num2;
+        }
+//Mass conversion
+        else if (unitType.equals("Mass")) {
+            switch (spinnerUnitFrom) {
+                case "Tonne": {
+                    switch (spinnerUnitTo) {
+                        case "Tonne":
+                            num2 = num1;
+                            break;
+                        case "Kilogram":
+                            num2 = num1 * 1000;
+                            break;
+                        case "Gram":
+                            num2 = num1 *1e+6;
+                            break;
+                        case "Milligram":
+                            num2 = num1 * 1e+9;
+                            break;
+                    }
+                    break;
+                }
+                case "Kilogram": {
+                    switch (spinnerUnitTo) {
+                        case "Kilogram":
+                            num2 = num1;
+                            break;
+                        case "Tonne":
+                            num2 = num1 * 0.001;
+                            break;
+                        case "Gram":
+                            num2 = num1 * 1000;
+                            break;
+                        case "Milligram":
+                            num2 = num1 * 1e+6;
+                            break;
+                    }
+                    break;
+                }
+                case "Gram": {
+                    switch (spinnerUnitTo) {
+                        case "Gram":
+                            num2 = num1;
+                            break;
+                        case "Tonne":
+                            num2 = num1 * 1e-6;
+                            break;
+                        case "Kilogram":
+                            num2 = num1 * 0.001;
+                            break;
+                        case "Milligram":
+                            num2 = num1 * 1000;
+                            break;
+                    }
+                    break;
+                }
+                case "Milligram": {
+                    switch (spinnerUnitTo) {
+                        case "Milligram":
+                            num2 = num1;
+                            break;
+                        case "Tonne":
+                            num2 = num1 * 1e-9;
+                            break;
+                        case "Kilogram":
+                            num2 = num1 * 1e-6;
+                            break;
+                        case "Gram":
+                            num2 = num1 * 0.001;
+                            break;
+                    }
+                    break;
+                }
+            }
+        }
+        return num2;
     }
 //Speed Conversion
 //        switch (spinnerUnitFrom) {

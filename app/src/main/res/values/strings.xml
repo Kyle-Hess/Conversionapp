@@ -3,7 +3,7 @@
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->
-        <string name="unit_title">Choose a unit.</string>
+    <string name="unit_title">Choose a unit.</string>
     <string name="unit_prompt">Choose unit</string>
     <string name="length">Length</string>
     <string name="equals_symbol">=</string>
@@ -24,6 +24,20 @@
         <item>Kilometres per hour</item>
         <item>Metres per second</item>
         <item>Miles per hour</item>
+    </string-array>
+
+    <string-array name="temperature_array">
+        <item>Celsius</item>
+        <item>Fahrenheit</item>
+        <item>Kelvin</item>
+    </string-array>
+
+    <string-array name="mass_array">
+        <item>Tonne</item>
+        <item>Kilogram</item>
+        <item>Gram</item>
+        <item>Milligram</item>
+
     </string-array>
 
     <string name="pref_header_general">General</string>
@@ -87,11 +101,8 @@
 
     <!-- Example settings for Notifications -->
     <string name="pref_header_notifications">Notifications</string>
-
     <string name="pref_title_new_message_notifications">New message notifications</string>
-
     <string name="pref_title_ringtone">Ringtone</string>
     <string name="pref_ringtone_silent">Silent</string>
-
     <string name="pref_title_vibrate">Vibrate</string>
 </resources>
