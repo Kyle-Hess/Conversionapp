@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     private ArrayAdapter<CharSequence> adapterMass;
 
     SharedPreferences prefs;
+    private int spinnerUnitFromAsInt;
+    private int spinnerUnitToAsInt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +58,10 @@ public class MainActivity extends AppCompatActivity {
         prefs = getSharedPreferences("prefs", MODE_PRIVATE);
         currentUnitType = prefs.getString("prefRadio", "");
 
-        //changed spinner items to the selected unit name
+        spinnerFrom.setSelection(prefs.getInt("prefSpinnerFrom", 0));
+        spinnerTo.setSelection(prefs.getInt("prefSpinnerTo",0));
+
+        //changes spinner items to the selected unit name
         changeUnitAdapters();
 
         //Button to Unit selection (settings) screen
@@ -68,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         //clears the text input areas when selected
         View.OnFocusChangeListener f = new View.OnFocusChangeListener() {
             @Override
@@ -78,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
+
         inputFrom.setOnFocusChangeListener(f);
         inputTo.setOnFocusChangeListener(f);
 
@@ -85,7 +92,10 @@ public class MainActivity extends AppCompatActivity {
         spinnerFrom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String spinnerFromSelected = parent.getItemAtPosition(position).toString();
+                //String spinnerFromSelected = parent.getItemAtPosition(position).toString();
+                spinnerUnitFromAsInt = position;
+                System.out.println(position);
+                prefs.edit().putInt("prefSpinnerFrom", spinnerUnitFromAsInt).apply();
             }
 
             @Override
@@ -93,10 +103,14 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
         spinnerTo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String spinnerToSelected = parent.getItemAtPosition(position).toString();
+                //String spinnerToSelected = parent.getItemAtPosition(position).toString();
+                spinnerUnitToAsInt = position;
+                System.out.println(position);
+                prefs.edit().putInt("prefSpinnerTo", spinnerUnitToAsInt).apply();
 
             }
 
@@ -106,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //// TODO: 23/03/2017 Try and simplify the on text change input listeners into one listener
         //Converts an inputted number based on the unit of measurement selected from the 'spinnerFrom' spinner & output the result in inputTo editText
         inputFrom.addTextChangedListener(new TextWatcher() {
             @Override
@@ -117,7 +130,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence string, int start, int before, int count) {
                 try {
-                    System.out.println("test from");
                     //onTextConvert1(value);
                     String spinnerUnitFrom = (String) spinnerFrom.getSelectedItem();
                     String spinnerUnitTo = (String) spinnerTo.getSelectedItem();
@@ -126,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
                     if (repeatingText) {
                         repeatingText = false;
                         inputTo.setText(String.valueOf(String.format("%.6f", result)));
+                        System.out.println("test from");
                     } else {
                         repeatingText = true;
                     }
@@ -139,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
         //Converts an inputted number based on the unit of measurement selected from the 'spinnerTo' spinner & output the result in inputFrom editText
         inputTo.addTextChangedListener(new TextWatcher() {
             @Override
@@ -149,7 +163,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence string, int start, int before, int count) {
                 try {
-                    System.out.println("test to");
                     String spinnerUnitFrom = (String) spinnerFrom.getSelectedItem();
                     String spinnerUnitTo = (String) spinnerTo.getSelectedItem();
                     Double valueTo = Double.valueOf(inputTo.getText().toString());
@@ -158,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
                     if (repeatingText) {
                         repeatingText = false;
                         inputFrom.setText(String.valueOf(String.format("%.6f", result)));
+                        System.out.println("test to");
                     } else {
                         repeatingText = true;
                     }
@@ -200,6 +214,25 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
 
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        try {
+            spinnerUnitFromAsInt = prefs.getInt("prefSpinnerFrom", spinnerUnitFromAsInt);
+            spinnerUnitToAsInt = prefs.getInt("prefSpinnerTo", spinnerUnitToAsInt);
+
+        } catch (Exception e) {
+
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        prefs.edit().putInt("prefSpinnerFrom", spinnerUnitFromAsInt).apply();
+        prefs.edit().putInt("prefSpinnerTo", spinnerUnitToAsInt).apply();
     }
 }
 

@@ -38,12 +38,12 @@ public class SettingsActivity extends AppCompatActivity {
         radioButtonGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                updatePrefButton();
+                updateUnitType();
             }
         });
     }
 //gets the name of the selected radio Button and saves it the Shared prefs.
-    private void updatePrefButton() {
+    private void updateUnitType() {
         int radioButtonID = radioButtonGroup.getCheckedRadioButtonId();
         View radioButtonG = radioButtonGroup.findViewById(radioButtonID);
         RadioButton r = (RadioButton) radioButtonG;
