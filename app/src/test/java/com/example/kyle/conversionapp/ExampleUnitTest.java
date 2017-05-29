@@ -22,7 +22,7 @@ public class ExampleUnitTest {
 
     //Tests the Convert() method
     @Test
-    public void converterCreation() throws Exception{
+    public void converterCreation() throws Exception {
 
         String currentUnitType = "Length";
         double num = 1;

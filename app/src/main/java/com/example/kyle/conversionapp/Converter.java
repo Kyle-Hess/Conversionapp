@@ -13,7 +13,6 @@ public class Converter {
     private String currentUnit;
     SharedPreferences prefs;
 
-
     public Converter() {
         currentUnit = prefs.getString("prefRadio", "");
         System.out.println(currentUnit);
@@ -266,7 +265,7 @@ public class Converter {
             return num2;
         }
 //Speed Conversion
-         else if (unitType.equals("Speed")) {
+        else if (unitType.equals("Speed")) {
             switch (spinnerUnitFrom) {
                 case "Kilometres per hour": {
                     switch (spinnerUnitTo) {
@@ -313,7 +312,7 @@ public class Converter {
                 }
             }
             return num2;
-         }
+        }
 //Temperature Conversion
         else if (unitType.equals("Temperature")) {
             switch (spinnerUnitFrom) {
@@ -375,7 +374,7 @@ public class Converter {
                             num2 = num1 * 1000;
                             break;
                         case "Gram":
-                            num2 = num1 *1e+6;
+                            num2 = num1 * 1e+6;
                             break;
                         case "Milligram":
                             num2 = num1 * 1e+9;
@@ -438,56 +437,6 @@ public class Converter {
         }
         return num2;
     }
-//Speed Conversion
-//        switch (spinnerUnitFrom) {
-//
-//            case "Kilometres per hour": {
-//                switch (spinnerUnitTo) {
-//                    case "Kilometres per hour":
-//                        num2 = num1;
-//                        break;
-//                    case "Metres per second":
-//                        num2 = num1 * 0.277778;
-//                        break;
-//                    case "Miles per hour":
-//                        num2 = num1 * 0.621371;
-//                        break;
-//                }
-//                break;
-//            }
-//            case "Metres per second": {
-//                switch (spinnerUnitTo) {
-//                    case "Metres per second":
-//                        num2 = num1;
-//                        break;
-//                    case "Kilometres per hour":
-//                        num2 = num1 * 3.6;
-//                        break;
-//
-//                    case "Miles per hour":
-//                        num2 = num1 * 2.23694;
-//                        break;
-//                }
-//                break;
-//            }
-//            case "Miles per hour": {
-//                switch (spinnerUnitTo) {
-//                    case "Miles per hour":
-//                        num2 = num1;
-//                        break;
-//                    case "Kilometres per hour":
-//                        num2 = num1 * 1.60934;
-//                        break;
-//                    case "Metres per second":
-//                        num2 = num1 * 0.44704;
-//                        break;
-//                }
-//                break;
-//            }
-//        }
-//        return num2;
-//    }
-
 
     private double convertSpeed(double value, String spinnerUnitFrom, String spinnerUnitTo) {
         double num1 = value;

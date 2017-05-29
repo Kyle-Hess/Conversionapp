@@ -2,12 +2,19 @@
     <string name="app_name">Conversion app</string>
     <string name="title_activity_settings">Settings</string>
 
-    <!-- Strings related to Settings -->
+    <!-- Strings related to Main Activity -->
     <string name="unit_title">Choose a unit.</string>
     <string name="unit_prompt">Choose unit</string>
-    <string name="length">Length</string>
     <string name="equals_symbol">=</string>
-    <string name="change_units_Button_text">Change units</string>
+    <string name="change_units_Button">Change units</string>
+
+    <!-- Strings related to Settings -->
+    <string name="units_of_measurement">Units of Measurement</string>
+    <string name="length">Length</string>
+    <string name="speed">Speed</string>
+    <string name="temperature">Temperature</string>
+    <string name="mass">Mass</string>
+    <string name="confirm">Confirm</string>
 
     <string-array name="length_array">
         <item>Kilometre</item>

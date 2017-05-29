@@ -19,6 +19,9 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.mipmap.ic_launcher_two);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
         setContentView(R.layout.activity_settings);
         prefs = getSharedPreferences("prefs", MODE_PRIVATE);
 
@@ -42,7 +45,8 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
     }
-//gets the name of the selected radio Button and saves it the Shared prefs.
+
+    //gets the name of the selected radio Button and saves it the Shared prefs.
     private void updateUnitType() {
         int radioButtonID = radioButtonGroup.getCheckedRadioButtonId();
         View radioButtonG = radioButtonGroup.findViewById(radioButtonID);
@@ -52,7 +56,7 @@ public class SettingsActivity extends AppCompatActivity {
         System.out.println(unitName);
     }
 
-//when the app starts up again, the unit name is retrieved and radio button set from the users last unit choice
+    //when the app starts up again, the unit name is retrieved and radio button set from the users last unit choice
     @Override
     protected void onStart() {
         super.onStart();
@@ -77,7 +81,8 @@ public class SettingsActivity extends AppCompatActivity {
             radioButtonGroup.check(R.id.radioLength);
         }
     }
-//when the app is closed, the unit named is saved
+
+    //when the app is closed, the unit named is saved
     @Override
     protected void onStop() {
         super.onStop();

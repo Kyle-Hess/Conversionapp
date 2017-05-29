@@ -2,10 +2,14 @@ package com.example.kyle.conversionapp;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
@@ -40,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         setContentView(R.layout.activity_main);
 
+
         unitTitle = (TextView) findViewById(R.id.unit_title);
         spinnerFrom = (Spinner) findViewById(R.id.spinner_from);
         spinnerTo = (Spinner) findViewById(R.id.spinner_to);
@@ -59,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         currentUnitType = prefs.getString("prefRadio", "");
 
         spinnerFrom.setSelection(prefs.getInt("prefSpinnerFrom", 0));
-        spinnerTo.setSelection(prefs.getInt("prefSpinnerTo",0));
+        spinnerTo.setSelection(prefs.getInt("prefSpinnerTo", 0));
 
         //changes spinner items to the selected unit name
         changeUnitAdapters();
@@ -130,7 +135,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence string, int start, int before, int count) {
                 try {
-                    //onTextConvert1(value);
                     String spinnerUnitFrom = (String) spinnerFrom.getSelectedItem();
                     String spinnerUnitTo = (String) spinnerTo.getSelectedItem();
                     Double valueFrom = Double.valueOf(inputFrom.getText().toString());
@@ -212,6 +216,27 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
         } catch (Exception e) {
+
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.settings:
+                Intent changeUnits = new Intent(this, SettingsActivity.class);
+                startActivity(changeUnits);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
 
         }
     }
