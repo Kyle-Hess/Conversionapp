@@ -1,12 +1,9 @@
-package com.example.kyle.conversionapp;
+package com.kyle.app.conversionapp;
 
 import android.content.SharedPreferences;
-import android.widget.Switch;
-
-import static android.content.Context.MODE_PRIVATE;
 
 /**
- * Created by Kyle on 26/03/2017.
+  Created by Kyle on 26/03/2017.
  */
 
 public class Converter {

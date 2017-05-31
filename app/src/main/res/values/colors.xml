@@ -5,9 +5,12 @@
     <color name="colorAccent">#ff4081</color>
     <color name="backgound">#264653</color>
     <color name="Button">#58d68d</color>
-    <color name="Input">#067c92</color>
+    <color name="Input">#b4067c92</color>
     <color name="Spinner">#2a9d8f</color>
     <color name="textColour">#ff1654</color>
     <color name="heading">#264653</color>
     <color name="Button2">#f4a261</color>
+    <color name="heading_2">#780a2f58</color>
+    <color name="background_2">#f01f2730</color>
+    <color name="Input_2">#b43c628a</color>
 </resources>

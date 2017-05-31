@@ -1,17 +1,13 @@
-package com.example.kyle.conversionapp;
+package com.kyle.app.conversionapp;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -49,10 +45,10 @@ public class MainActivity extends AppCompatActivity {
         spinnerFrom = (Spinner) findViewById(R.id.spinner_from);
         spinnerTo = (Spinner) findViewById(R.id.spinner_to);
 
-        adapterLength = ArrayAdapter.createFromResource(this, R.array.length_array, android.R.layout.simple_spinner_item);
-        adapterSpeed = ArrayAdapter.createFromResource(this, R.array.speed_array, android.R.layout.simple_spinner_item);
-        adapterTemperature = ArrayAdapter.createFromResource(this, R.array.temperature_array, android.R.layout.simple_spinner_item);
-        adapterMass = ArrayAdapter.createFromResource(this, R.array.mass_array, android.R.layout.simple_spinner_item);
+        adapterLength = ArrayAdapter.createFromResource(this, R.array.length_array, R.layout.spinner_item);
+        adapterSpeed = ArrayAdapter.createFromResource(this, R.array.speed_array, R.layout.spinner_item);
+        adapterTemperature = ArrayAdapter.createFromResource(this, R.array.temperature_array, R.layout.spinner_item);
+        adapterMass = ArrayAdapter.createFromResource(this, R.array.mass_array, R.layout.spinner_item);
 
         spinnerFrom.setAdapter(adapterLength);
         spinnerTo.setAdapter(adapterLength);
@@ -63,8 +59,15 @@ public class MainActivity extends AppCompatActivity {
         prefs = getSharedPreferences("prefs", MODE_PRIVATE);
         currentUnitType = prefs.getString("prefRadio", "");
 
-        spinnerFrom.setSelection(prefs.getInt("prefSpinnerFrom", 0));
-        spinnerTo.setSelection(prefs.getInt("prefSpinnerTo", 0));
+        int spinnerValueFrom = prefs.getInt("prefSpinnerFrom", -1);
+        if(spinnerValueFrom != -1) {
+            spinnerFrom.setSelection(spinnerValueFrom);
+        }
+
+        int spinnerValueTo =  prefs.getInt("prefSpinnerTo", -1);
+        if (spinnerValueTo != -1){
+            spinnerTo.setSelection(spinnerValueTo);
+        }
 
         //changes spinner items to the selected unit name
         changeUnitAdapters();
@@ -136,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence string, int start, int before, int count) {
                 try {
                     String spinnerUnitFrom = (String) spinnerFrom.getSelectedItem();
+                    //int val = spinnerFrom.getSelectedItemPosition();
                     String spinnerUnitTo = (String) spinnerTo.getSelectedItem();
                     Double valueFrom = Double.valueOf(inputFrom.getText().toString());
                     double result = Converter.convert(currentUnitType, valueFrom, spinnerUnitFrom, spinnerUnitTo);
@@ -220,12 +224,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.menu, menu);
+//        return true;
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

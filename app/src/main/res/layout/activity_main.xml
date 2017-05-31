@@ -4,19 +4,16 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgound"
+    android:background="@color/background_2"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.kyle.conversionapp.MainActivity">
+    android:paddingBottom="5dp"
+    tools:context="com.kyle.app.conversionapp.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5sp"
-        android:background="@color/heading"
+        android:background="@color/heading_2"
         android:orientation="horizontal"
         android:padding="5sp">
 
@@ -24,8 +21,9 @@
             android:id="@+id/unit_title"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginEnd="20sp"
-            android:padding="5sp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginStart="10dp"
+            android:padding="5dp"
             android:text="@string/unit_title"
             android:textAppearance="@android:style/TextAppearance.Material.Headline"
             android:textColor="@android:color/background_light" />
@@ -36,29 +34,31 @@
             android:layout_height="wrap_content"
             android:background="@color/Button"
             android:elevation="0dp"
-            android:text="@string/change_units_Button"
-            android:visibility="invisible" />
+            android:text="@string/change_units_Button" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/Input">
+        android:layout_margin="5dp">
 
         <Spinner
             android:id="@+id/spinner_from"
             android:layout_width="match_parent"
-            android:layout_height="50sp"
+            android:layout_height="60dp"
+            android:backgroundTint="@android:color/background_light"
             android:entries="@array/length_array"
-            android:padding="5sp"
+            android:padding="5dp"
             android:prompt="@string/unit_prompt" />
     </LinearLayout>
 
     <EditText
         android:id="@+id/input_from"
         android:layout_width="match_parent"
-        android:layout_height="60sp"
+        android:layout_height="50dp"
+        android:layout_margin="5dp"
+        android:backgroundTint="@color/colorAccent"
         android:ems="10"
         android:inputType="numberDecimal"
         android:textColor="@android:color/background_light"
@@ -79,14 +79,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/Input">
+        android:layout_margin="5dp">
 
         <Spinner
             android:id="@+id/spinner_to"
             android:layout_width="match_parent"
-            android:layout_height="50sp"
+            android:layout_height="60dp"
+            android:backgroundTint="@android:color/background_light"
             android:entries="@array/length_array"
-            android:padding="5sp"
+            android:padding="5dp"
             android:prompt="@string/unit_prompt"
             android:spinnerMode="dropdown" />
     </LinearLayout>
@@ -94,7 +95,9 @@
     <EditText
         android:id="@+id/input_to"
         android:layout_width="match_parent"
-        android:layout_height="60sp"
+        android:layout_height="50dp"
+        android:layout_margin="5dp"
+        android:backgroundTint="@color/colorAccent"
         android:ems="10"
         android:inputType="numberDecimal"
         android:textColor="@android:color/background_light"

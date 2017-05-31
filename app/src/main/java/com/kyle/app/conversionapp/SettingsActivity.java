@@ -1,4 +1,4 @@
-package com.example.kyle.conversionapp;
+package com.kyle.app.conversionapp;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
